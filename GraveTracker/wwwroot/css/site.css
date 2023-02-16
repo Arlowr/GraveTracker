@@ -1,3 +1,17 @@
+:root {
+    --grave-deep-purple: 24, 0, 72;
+    --fg-light-colour: 201, 228, 255;
+    --fg-dark-colour: 81, 98, 142;
+    --sg-light-colour: 255, 255, 255;
+    --sg-dark-colour: 84, 61, 124;
+}
+
+@font-face{
+    font-family: Folkard;
+    src: url('folkard_.ttf');
+}
+
+
 html {
   font-size: 14px;
 }
@@ -15,4 +29,19 @@ html {
 
 body {
   margin-bottom: 60px;
+  font-family: Folkard !important;
+}
+
+.grave-nav-font {
+    font-family: Folkard !important;
+}
+
+.grave-nav-bgc {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--grave-deep-purple), var(--bs-bg-opacity)) !important;
+}
+
+.fg-body-colours {
+    color: var(--fg-dark-colour) !important;
+    background-color: var(--fg-light-colour) !important;
 }

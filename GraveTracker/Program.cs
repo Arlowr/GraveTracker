@@ -1,9 +1,32 @@
+using GraveTracker.Areas.Frostgrave.Models;
+using GraveTracker.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("GraveTrackerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'GraveTrackerDbContextConnection' not found.");
+
+builder.Services.AddScoped<IFGCharacterRepository, FGCharacterRepository>();
+builder.Services.AddScoped<IFGCharacterSuperTypeRepository, FGCharacterSuperTypeRepository>();
+builder.Services.AddScoped<IFGCharacterTypeRepository, FGCharacterTypeRepository>();
+builder.Services.AddScoped<IFGInjuryRepository, FGInjuryRepository>();
+builder.Services.AddScoped<IFGItemRepository, FGItemRepository>();
+builder.Services.AddScoped<IHomebaseRepository, HomebaseRepository>();
+builder.Services.AddScoped<IHomebaseTypeRepository, HomebaseTypeRepository>();
+builder.Services.AddScoped<ISpellRepository, SpellRepository>();
+builder.Services.AddScoped<ISpellSchoolRepository, SpellSchoolRepository>();
+builder.Services.AddScoped<IWarbandRepository, WarbandRepository>();
+builder.Services.AddScoped<IWizardRepository, WizardRepository>();
+builder.Services.AddScoped<IApprenticeRepository, ApprenticeRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<GraveTrackerDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
