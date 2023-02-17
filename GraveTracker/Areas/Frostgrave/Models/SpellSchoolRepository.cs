@@ -1,4 +1,5 @@
 ﻿using GraveTracker.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraveTracker.Areas.Frostgrave.Models
 {
@@ -10,6 +11,9 @@ namespace GraveTracker.Areas.Frostgrave.Models
         {
             _graveTrackerDbContext = graveTrackerDbContext;
         }
-        public IEnumerable<SpellSchool> AllSpellSchools => _graveTrackerDbContext.SpellSchools.OrderBy(t => t.SpellSchoolId);
+        public IEnumerable<SpellSchool> AllSpellSchools 
+        {
+            get { return _graveTrackerDbContext.SpellSchools.Include(s => s.Spells); }
+        }
     }
 }

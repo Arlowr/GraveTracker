@@ -10,10 +10,7 @@ namespace GraveTracker.Areas.Frostgrave.Models
         {
             _graveTrackerDbContext = graveTrackerDbContext;
         }
-        public IEnumerable<Apprentice> GetApprentices
-        {
-            get { return _graveTrackerDbContext.Apprentices.Include(w => w.Wizard); }
-        }
+        public IEnumerable<Apprentice> GetApprentices => _graveTrackerDbContext.Apprentices.OrderBy(a => a.ApprenticeId); 
 
         public Apprentice? GetApprenticeById(int apprenticeId)
         {

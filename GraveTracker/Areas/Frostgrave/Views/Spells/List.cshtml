@@ -1,0 +1,15 @@
+﻿@model SpellsViewModel
+
+<h1>Spells</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (SpellSchool spellSchool in Model.SpellSchools)
+    {
+        <h3 class="fg-text-light">@spellSchool.SpellSchoolName</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var spell in spellSchool.Spells)
+            {
+                <partial name="_SpellCard" model="spell"/>
+            }
+        </div>
+    }
+</div>

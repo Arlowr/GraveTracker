@@ -10,14 +10,12 @@
     <Content Update="wwwroot\Images\GraveLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\Images\skeleKingThrone.jpg">
+    <Content Update="wwwroot\Images\skeleKingThrone.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Frostgrave\Controllers\" />
-    <Folder Include="Areas\Frostgrave\Views\" />
     <Folder Include="Views\Models\" />
   </ItemGroup>
 

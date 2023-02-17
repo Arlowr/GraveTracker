@@ -32,6 +32,10 @@ body {
   font-family: Folkard !important;
 }
 
+.front-image {
+    min-height:500px;
+}
+
 .grave-nav-font {
     font-family: Folkard !important;
 }
@@ -44,4 +48,8 @@ body {
 .fg-body-colours {
     color: var(--fg-dark-colour) !important;
     background-color: var(--fg-light-colour) !important;
+}
+
+.fg-text-light {
+    color: var(--fg-light-colour) !important;
 }

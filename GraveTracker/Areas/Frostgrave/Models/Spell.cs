@@ -8,5 +8,6 @@
         public string SpellDescription { get; set; } = string.Empty;
         public string SpellType { get; set; } = string.Empty;
         public SpellSchool SpellSchool { get; set; } = default!;
+        public virtual List<Wizard>? Wizards { get; set; }
     }
 }

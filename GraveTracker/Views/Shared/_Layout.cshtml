@@ -11,11 +11,11 @@
 
     <base href="/" />
 </head>
-<body>
+<body class="bg-black">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark grave-nav-bgc border-bottom box-shadow mb-3 grave-nav-font">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="images/GraveTrackerLogo.png" width="120" height="50" class="d-inline-block align-top mb-2 mt-1"
                              alt="GraveTrackerLogo">
                          </a>
@@ -26,7 +26,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Frostgrave" asp-controller="Home" asp-action="Index">Frostgrave</a>
+                            <a class="nav-link text-light" asp-area="Frostgrave" asp-controller="FGHome" asp-action="Index">Frostgrave</a>
                         </li>
                     </ul>
                 </div>
@@ -40,8 +40,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - GraveTracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-light">
+            &copy; 2023 - GraveTracker @*- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

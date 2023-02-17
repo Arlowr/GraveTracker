@@ -3,7 +3,6 @@
     public class FGCharacterBase
     {
         public string Name { get; set; } = string.Empty;
-        public FGCharacterType Type { get; set; } = default!;
         public int Move { get; set; }
         public int Fight { get; set; }
         public int Shoot { get; set; }

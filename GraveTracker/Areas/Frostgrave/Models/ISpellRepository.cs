@@ -5,6 +5,5 @@
 
         IEnumerable<Spell> AllSpells { get; }
         Spell? GetSpellByID(int spellId);
-        IEnumerable<Spell> GetSpellsBySchool(int schoolId);
     }
 }

@@ -19,5 +19,7 @@ namespace GraveTracker.Models
         public DbSet<Homebase> Homebases { get; set; }
         public DbSet<HomebaseType> HomebaseTypes { get; set; }
         public DbSet<Warband> Warbands { get; set; }
+
+
     }
 }

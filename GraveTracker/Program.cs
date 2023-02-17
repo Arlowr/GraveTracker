@@ -43,8 +43,14 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapAreaControllerRoute(
+    name: "AreaFrostgrave",
+    areaName: "Frostgrave",
+    pattern: "Frostgrave/{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+DbInitializer.Seed(app);
 app.Run();
