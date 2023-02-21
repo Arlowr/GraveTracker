@@ -1,0 +1,8 @@
+﻿@model Wizard
+
+<div class="row fg-text-light">
+    <div class="d-flex justify-content-between mt-2">
+        <h5><a asp-area="Frostgrave" asp-controller="Wizard" asp-action="Details" asp-route-id="@Model.WizardId">@Model.Name</a></h5>
+        <h5>@Model.SpellSchool.SpellSchoolName</h5>
+    </div>
+</div>

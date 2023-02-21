@@ -1,0 +1,6 @@
+﻿@model WizardListViewModel
+
+@foreach (var wizard in Model.Wizards)
+{
+    <partial name="_WizardCard" model="wizard" />
+}

@@ -1,7 +1,7 @@
 :root {
     --grave-deep-purple: 24, 0, 72;
-    --fg-light-colour: 201, 228, 255;
-    --fg-dark-colour: 81, 98, 142;
+    --fg-light-colour: 120, 240, 255;
+    --fg-dark-colour: 255, 98, 142;
     --sg-light-colour: 255, 255, 255;
     --sg-dark-colour: 84, 61, 124;
 }
@@ -29,7 +29,7 @@ html {
 
 body {
   margin-bottom: 60px;
-  font-family: Folkard !important;
+  font-family: Folkard;
 }
 
 .front-image {
@@ -37,19 +37,38 @@ body {
 }
 
 .grave-nav-font {
-    font-family: Folkard !important;
+    font-family: Folkard;
 }
 
 .grave-nav-bgc {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--grave-deep-purple), var(--bs-bg-opacity)) !important;
+    background-color: rgba(var(--grave-deep-purple), var(--bs-bg-opacity));
 }
 
-.fg-body-colours {
-    color: var(--fg-dark-colour) !important;
-    background-color: var(--fg-light-colour) !important;
+.fg-body-main {
+    color: rgb(var(--fg-light-colour));
 }
 
 .fg-text-light {
-    color: var(--fg-light-colour) !important;
+    color: rgb(var(--fg-light-colour));
+}
+
+.fg-header-light {
+    font-weight: bold;
+    color: rgb(var(--fg-light-colour)) !important;
+}
+
+.fg-spell-box{
+    border-style: ridge;
+    border-block-color: antiquewhite;
+}
+
+.fg-spellschool-container {
+    padding-top: 20px;
+    border-style: ridge;
+    border-block-color: antiquewhite;
+}
+
+.fg-list {
+    border-spacing: 5px;
 }

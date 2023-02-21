@@ -1,0 +1,23 @@
+﻿@model WizardDetailViewModel
+
+<h3 class="my-5 fg-header-light">
+    @Model.Wizard.Name
+</h3>
+
+<div class="row gx-5 fg-text-light">
+    @*<img alt="@Model.Name" src="@Model.ImageUrl" class="img-fluid col-5" />*@
+    <div class="col-7">
+        <h4>@Model.Wizard.SpellSchool.SpellSchoolName</h4>
+        <p>Level: @Model.Wizard.Level - Total Experience: @Model.Wizard.Experience</p>
+        <p>Move: @Model.Wizard.Move  Fight: +@Model.Wizard.Fight  Shoot: +@Model.Wizard.Shoot  Armour: @Model.Wizard.Armour  Will: @Model.Wizard.Will  Max Health: @Model.Wizard.MaxHealth</p>
+        @if (Model.ShowSpells)
+        {
+            @foreach (Spell spell in Model.Wizard.KnownSpells)
+            {
+                <div class="p-3">
+                    <partial name="_SpellCard" model="spell" />
+                </div>
+            }
+        }
+    </div>
+</div> 

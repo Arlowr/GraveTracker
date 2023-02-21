@@ -1,0 +1,43 @@
+﻿@model WizardListViewModel
+
+<div class="row row-cols-1 row-cols-md-2">
+    <h1 class="fg-header-light col">Wizards!</h1>
+    <div class="search-box">
+        <input type="text" id="wizardName" placeholder="Filter Wizards" />
+        <button id="filter-btn">Filter</button>
+    </div>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div id="filter-results-container">
+        @Html.Partial("_FilteredWizardList")
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("button").click(function () {
+            var filterText = $.trim($("#wizardName").val());
+            $.ajax({
+                url: "@Url.Action("Filter", "Wizard", new { area = "Frostgrave" })",
+                type: "POST",
+                data: { filterText: filterText },
+                success: function (data) {
+                    if (data === "No wizards found."){
+                        $("#filter-results-container").html("<p>No wizards found</p>");
+                    }
+                    else
+                    {
+                        $("#filter-results-container").html(data);
+                    }
+                    console.log("We got here!");
+                },
+                error: function () {
+                    alert("An error occurred while performing the filter.");
+                }
+            });
+        });
+    });
+
+</script>

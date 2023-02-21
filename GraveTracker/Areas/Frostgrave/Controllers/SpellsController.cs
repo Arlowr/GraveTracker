@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace GraveTracker.Areas.Frostgrave.Controllers
 {
     [Area("Frostgrave")]
-    public class Spells : Controller
+    public class SpellsController : Controller
     {
         private readonly ISpellSchoolRepository _spellSchoolRepository;
-        public Spells(ISpellSchoolRepository spellSchoolRepository)
+        public SpellsController(ISpellSchoolRepository spellSchoolRepository)
         {
             _spellSchoolRepository = spellSchoolRepository;
         }

@@ -1,4 +1,5 @@
 ﻿using GraveTracker.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraveTracker.Areas.Frostgrave.Models
 {
@@ -10,11 +11,14 @@ namespace GraveTracker.Areas.Frostgrave.Models
         {
             _graveTrackerDbContext = graveTrackerDbContext;
         }
-        public IEnumerable<Wizard> AllWizards => _graveTrackerDbContext.Wizards.OrderBy(t => t.WizardId);
+        public IEnumerable<Wizard> AllWizards 
+        {
+            get { return _graveTrackerDbContext.Wizards.Include(s => s.SpellSchool); }
+        }
 
         public Wizard? GetWizardByID(int wizardId)
         {
-            return _graveTrackerDbContext.Wizards.FirstOrDefault(c => c.WizardId == wizardId);
+            return _graveTrackerDbContext.Wizards.Include(s => s.SpellSchool).Include(s => s.KnownSpells).FirstOrDefault(c => c.WizardId == wizardId);
         }
     }
 }

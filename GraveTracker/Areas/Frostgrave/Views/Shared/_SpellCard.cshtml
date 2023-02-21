@@ -1,8 +1,11 @@
 ﻿@model Spell
 
-<div class="col">
+<div class="col p-3 px-4 fg-spell-box">
     <div class="row">
-        <h4 class="justify-content-center fg-text-light">@Model.SpellName</h4>
-
+        <h3 class="justify-content-center fg-text-light">@Model.SpellName</h3>
+        <div>
+            <h5>@Model.SpellSchool.SpellSchoolName + " / " + @Model.CastingNumber + " / " + @Model.SpellType</h5>
+            <p>@Model.SpellDescription</p>
+        </div>
     </div>
 </div>
