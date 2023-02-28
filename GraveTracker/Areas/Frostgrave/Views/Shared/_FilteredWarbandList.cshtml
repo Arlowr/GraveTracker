@@ -1,0 +1,6 @@
+﻿@model WarbandListViewModel
+
+@foreach (var warband in Model.Warbands)
+{
+    <partial name="_WarbandCard" model="warband" />
+}

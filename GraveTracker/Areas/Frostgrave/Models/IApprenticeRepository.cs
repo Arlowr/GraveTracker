@@ -4,5 +4,6 @@
     {
         IEnumerable<Apprentice> GetApprentices { get; }
         Apprentice? GetApprenticeById(int apprenticeId);
+        int UpdateApprentice(Apprentice apprentice);
     }
 }

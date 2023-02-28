@@ -4,6 +4,6 @@
     {
         IEnumerable<Wizard> AllWizards { get; }
         Wizard? GetWizardByID(int wizardId);
-
+        int UpdateWizard(Wizard wizard);
     }
 }

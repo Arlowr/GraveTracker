@@ -1,0 +1,181 @@
+﻿@model EditWizardViewModel
+@{
+    ViewBag.Title = "Edit Wizard";
+}
+
+<h1 class="fg-header-light">@Model.PageTitle</h1>
+
+<div class="fg-text-light">
+    @using (Html.BeginForm("EditWizard", "Wizard", FormMethod.Post, Model))
+    {
+        <input type="hidden" asp-for="@Model.Wizard.WizardId" />
+        <input type="hidden" asp-for="@Model.Wizard.Backstory" />
+        <input type="hidden" asp-for="@Model.Wizard.Items" />
+        <input type="hidden" asp-for="@Model.Wizard.Injuries" />
+        @Html.HiddenFor(model => model.knownSpellsListJson, new {id = "knownSpellsList"})
+        <div class="p-2">
+            @Html.LabelFor(model => model.Wizard.Name)
+            @Html.TextBoxFor(model => model.Wizard.Name)
+            @Html.ValidationMessageFor(model => model.Wizard.Name)
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-4">
+            <div class="col p-2">
+                @Html.LabelFor(model => model.Wizard.Level)
+                @Html.TextBoxFor(model => model.Wizard.Level, new { @class = "fg-input-small-txt-box"})
+                @Html.ValidationMessageFor(model => model.Wizard.Level)
+            </div>
+            <div class="col p-2">
+                @Html.LabelFor(model => model.Wizard.Experience)
+                @Html.TextBoxFor(model => model.Wizard.Experience, new { @class = "fg-input-txt-box"})
+                @Html.ValidationMessageFor(model => model.Wizard.Experience)
+            </div>
+        </div>
+
+        <div class="row row-cols-3 row-cols-md-6 fg-stat-block d-flex justify-content-center">
+            <div class="col">
+                <div class="row d-flex justify-content-center">
+                    @Html.LabelFor(model => model.Wizard.Move)
+                    @Html.TextBoxFor(model => model.Wizard.Move, new { @class = "fg-input-small-txt-box"})
+                    @Html.ValidationMessageFor(model => model.Wizard.Move)
+                </div>
+            </div>
+            <div class="col">
+                <div class="row d-flex justify-content-center">
+                    @Html.LabelFor(model => model.Wizard.Fight)
+                    @Html.TextBoxFor(model => model.Wizard.Fight, new { @class = "fg-input-small-txt-box"})
+                    @Html.ValidationMessageFor(model => model.Wizard.Fight)
+                </div>
+            </div>
+            <div class="col">
+                <div class="row d-flex justify-content-center">
+                    @Html.LabelFor(model => model.Wizard.Shoot)
+                    @Html.TextBoxFor(model => model.Wizard.Shoot, new { @class = "fg-input-small-txt-box"})
+                    @Html.ValidationMessageFor(model => model.Wizard.Shoot)
+                </div>
+            </div>
+            <div class="col">
+                <div class="row d-flex justify-content-center">
+                    @Html.LabelFor(model => model.Wizard.Armour)
+                    @Html.TextBoxFor(model => model.Wizard.Armour, new { @class = "fg-input-small-txt-box"})
+                    @Html.ValidationMessageFor(model => model.Wizard.Armour)
+                </div>
+            </div>
+            <div class="col">
+                <div class="row d-flex justify-content-center">
+                    @Html.LabelFor(model => model.Wizard.Will)
+                    @Html.TextBoxFor(model => model.Wizard.Will, new { @class = "fg-input-small-txt-box"})
+                    @Html.ValidationMessageFor(model => model.Wizard.Will)
+                </div>
+            </div>
+            <div class="col">
+                <div class="row d-flex justify-content-center">
+                    @Html.LabelFor(model => model.Wizard.MaxHealth)
+                    @Html.TextBoxFor(model => model.Wizard.MaxHealth, new { @class = "fg-input-small-txt-box"})
+                    @Html.ValidationMessageFor(model => model.Wizard.MaxHealth)
+                </div>
+            </div>
+        </div>
+
+        <div class="p-2">
+            @Html.LabelFor(model => model.Wizard.SpellSchool)
+            @Html.DropDownListFor(model => model.Wizard.SpellSchool.SpellSchoolName, new SelectList(Model.SpellSchoolList, "SpellSchoolName", "SpellSchoolName"), "-- Select --")
+            @Html.ValidationMessageFor(model => model.Wizard.SpellSchool)
+        </div>
+
+        <div class="p-2">
+            <label for="spells">Available Spells:</label>
+            <select id="spells" class="text-black">
+                <option value="">-- Select a Spell --</option>
+                @foreach (var spell in Model.AvailableSpells)
+                {
+                    <option value="@spell.SpellId" data-spell-id="@spell.SpellId" data-spell-name="@spell.SpellName">@spell.SpellName</option>
+                }
+            </select>
+            <button id="addKnownSpell" type="button">Add Spell</button>
+        </div>
+
+        <div class="p-2">
+            <label>Known Spells:</label>
+            <ul id="knownSpells" class="row row-cols row-cols-md-3 ">
+                @foreach (var spell in Model.KnownSpellsList)
+                {
+                    <li class="col p-2" data-spell-id="@spell.SpellId" data-spell-name="@spell.SpellName">
+                        @spell.SpellName
+                        <button type="button" class="removeKnownSpell">Remove</button>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <input class="p-2" type="submit" value="@Model.ButtonText" />
+    }
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#addKnownSpell').click(function () {
+            var knownSpellsList = JSON.parse($('#knownSpellsList').val());
+            var selectedSpell = $('#spells').val();
+            if (selectedSpell != '') {
+                var availableSpellsList = $('#spells');
+                var selectedSpellOption = availableSpellsList.find('option[value="' + selectedSpell + '"]');
+                var selectedSpellObj = {
+                    SpellId: selectedSpellOption.data('spell-id'),
+                    SpellName: selectedSpellOption.data('spell-name'),
+                };
+                var knownSpells = $('#knownSpells');
+                knownSpells.append('<li class="col p-2" data-spell-id="' + selectedSpellObj.SpellId + '">' + selectedSpellObj.SpellName + '<button class="removeKnownSpell" type="button">Remove</button></li>');
+
+                // remove the selected spell from the available spells list
+                availableSpellsList.find('option[value="' + selectedSpell + '"]').remove();
+
+                knownSpellsList.push(selectedSpellObj);
+                $('#knownSpellsList').val(JSON.stringify(knownSpellsList));
+            }
+        });
+
+        $('#knownSpells').on('click', '.removeKnownSpell', function () {
+            var removedSpell = $(this).parent().text().trim().replace('Remove', '');
+            var removedSpellId = $(this).parent().data('spell-id');
+            $(this).parent().remove();
+
+            // add the removed spell back to the available spells list, in SpellId order
+            var availableSpellsList = $('#spells');
+            var selectedSpellOption = availableSpellsList.find('option[value="' + removedSpell + '"]');
+            if (selectedSpellOption.length == 0) {
+                var newOption = $('<option>').attr({
+                    value: removedSpell,
+                    'data-spell-id': removedSpellId,
+                    'data-spell-name': removedSpell
+                });
+                newOption.text(removedSpell);
+                var added = false;
+                availableSpellsList.find('option').each(function () {
+                    if (!added && $(this).data('spell-id') > removedSpellId) {
+                        newOption.insertBefore($(this));
+                        added = true;
+                    }
+                });
+                if (!added) {
+                    availableSpellsList.append(newOption);
+                }
+
+                // sort the available spells list by SpellId
+                var options = availableSpellsList.find('option');
+                options.sort(function (a, b) {
+                    return $(a).data('spell-id') - $(b).data('spell-id');
+                });
+                availableSpellsList.html(options);
+
+                var knownSpellsList = JSON.parse($('#knownSpellsList').val());
+                var indexToRemove = knownSpellsList.findIndex(spell => spell.SpellId === removedSpellId);
+                knownSpellsList.splice(indexToRemove, 1);
+                $('#knownSpellsList').val(JSON.stringify(knownSpellsList));
+            }
+        });
+
+    });
+
+</script>

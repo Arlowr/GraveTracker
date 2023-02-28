@@ -1,21 +1,21 @@
-﻿@model WizardListViewModel
+﻿@model WarbandListViewModel
 
 <div class="row row-cols-1">
-    <h1 class="row fg-header-light col">Wizards!</h1>
+    <h1 class="row fg-header-light col">Warbands!</h1>
     <div class="row row-cols-1 row-cols-md-2">
         <h4 class="p-2 d-grid" style="width: 250px">
             <a class="btn btn-secondary"
-               asp-area="Frostgrave" asp-controller="Wizard" asp-action="EditWizard">New Wizard</a>
+               asp-area="Frostgrave" asp-controller="Warband" asp-action="EditWarband">New Warband</a>
         </h4>
         <div class="p-2 search-box">
-            <input type="text" id="wizardName" placeholder="Filter Wizards" />
+            <input type="text" id="warbandName" placeholder="Filter Warbands" />
             <button id="filter-btn">Filter</button>
         </div>
     </div>
 </div>
 <div class="row row-cols-1 row-cols-md-3 g-4">
     <div id="filter-results-container">
-        @Html.Partial("_FilteredWizardList")
+        @Html.Partial("_FilteredWarbandList")
     </div>
 
 </div>
@@ -24,17 +24,16 @@
 
     $(document).ready(function () {
         $("button").click(function () {
-            var filterText = $.trim($("#wizardName").val());
+            var filterText = $.trim($("#warbandName").val());
             $.ajax({
-                url: "@Url.Action("Filter", "Wizard", new { area = "Frostgrave" })",
+                url: "@Url.Action("Filter", "Warband", new { area = "Frostgrave" })",
                 type: "POST",
                 data: { filterText: filterText },
                 success: function (data) {
-                    if (data === "No wizards found."){
-                        $("#filter-results-container").html("<p>No wizards found</p>");
+                    if (data === "No warbands found.") {
+                        $("#filter-results-container").html("<p>No warbands found</p>");
                     }
-                    else
-                    {
+                    else {
                         $("#filter-results-container").html(data);
                     }
                 },

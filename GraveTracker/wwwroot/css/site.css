@@ -72,3 +72,18 @@ body {
 .fg-list {
     border-spacing: 5px;
 }
+
+.fg-input-txt-box {
+    max-width: 60px;
+}
+.fg-input-small-txt-box {
+    max-width: 50px;
+}
+
+.fg-stat-block {
+    max-width: 600px;
+    border: solid thin;
+    border-block-color: rgb(var(--fg-light-colour));
+    padding: 5px;
+    text-align: center;
+}

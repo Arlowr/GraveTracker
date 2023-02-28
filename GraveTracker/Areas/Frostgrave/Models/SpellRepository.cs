@@ -12,12 +12,12 @@ namespace GraveTracker.Areas.Frostgrave.Models
         }
         public IEnumerable<Spell> AllSpells
         {
-            get { return _graveTrackerDbContext.Spells.Include(t => t.SpellSchool); }
+            get { return _graveTrackerDbContext.Spells.Include(s => s.SpellSchool).Include(w => w.Wizards); }
         }
 
         public Spell? GetSpellByID(int spellId)
         {
-            return _graveTrackerDbContext.Spells.FirstOrDefault(c => c.SpellId == spellId);
+            return _graveTrackerDbContext.Spells.Include(s => s.SpellSchool).FirstOrDefault(c => c.SpellId == spellId);
         }
 
         public IEnumerable<Spell> GetSpellsBySchool(int schoolId)

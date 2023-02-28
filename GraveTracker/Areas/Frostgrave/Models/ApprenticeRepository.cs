@@ -16,5 +16,22 @@ namespace GraveTracker.Areas.Frostgrave.Models
         {
             return _graveTrackerDbContext.Apprentices.FirstOrDefault(c => c.ApprenticeId == apprenticeId);
         }
+
+        public int UpdateApprentice(Apprentice apprentice)
+        {
+            var existingapprentice = GetApprenticeById(apprentice.ApprenticeId);
+
+            if (existingapprentice == null)
+            {
+                _graveTrackerDbContext.Apprentices.Add(apprentice);
+            }
+            else
+            {
+                _graveTrackerDbContext.Entry(existingapprentice).CurrentValues.SetValues(apprentice);
+            }
+            _graveTrackerDbContext.SaveChanges();
+
+            return apprentice.ApprenticeId;
+        }
     }
 }

@@ -1,0 +1,14 @@
+﻿@model Warband
+
+<div class="row row-cols-1 row-cols-md-2 fg-header-light">
+
+    <h3 class="my-5">
+        @Model.WarbandName
+    </h3>
+    <h4>@Model.Wizard.Name</h4>
+    <p>@Model.WarbandDescription</p>
+    <h4 class="p-2 d-grid" style="max-width: 250px; max-height: 100px;">
+        <a class="btn btn-secondary"
+           asp-area="Frostgrave" asp-controller="Warband" asp-action="EditWarband" asp-route-warbandID="@Model.WarbandId">Edit Warband</a>
+    </h4>
+</div>

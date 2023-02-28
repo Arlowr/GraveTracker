@@ -1,0 +1,8 @@
+﻿@model Warband
+
+<div class="row fg-text-light">
+    <div class="d-flex justify-content-between mt-2">
+        <h5><a asp-area="Frostgrave" asp-controller="Warband" asp-action="Details" asp-route-id="@Model.WarbandId">@Model.WarbandName</a></h5>
+        <h5>@Model.Wizard.Name</h5> 
+    </div>
+</div>

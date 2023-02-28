@@ -1,0 +1,39 @@
+﻿@model EditWarbandViewModel
+@{
+    ViewBag.Title = "Edit Warband";
+}
+
+<h1 class="fg-header-light">@Model.PageTitle</h1>
+
+<div class="fg-text-light">
+    @using (Html.BeginForm("EditWarband", "Warband", FormMethod.Post, Model.Warband))
+    {
+        <input type="hidden" asp-for="@Model.Warband.WarbandId" />
+        <input type="hidden" asp-for="@Model.Warband.Apprentice.ApprenticeId" />
+        <div class="p-2">
+            @Html.LabelFor(model => model.Warband.WarbandName)
+            @Html.TextBoxFor(model => model.Warband.WarbandName)
+            @Html.ValidationMessageFor(model => model.Warband.WarbandName)
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col">
+                <div class="p-2">
+                    @Html.LabelFor(model => model.Warband.Wizard)
+                    @Html.DropDownListFor(model => model.Warband.Wizard.WizardId, new SelectList(Model.WizardList, "WizardId", "Name"), "-- Select --")
+                    @Html.ValidationMessageFor(model => model.Warband.Wizard)
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="p-2">
+                    @Html.LabelFor(model => model.Warband.Apprentice.Name)
+                    @Html.TextBoxFor(model => model.Warband.Apprentice.Name)
+                    @Html.ValidationMessageFor(model => model.Warband.Apprentice.Name)
+                </div>
+            </div>
+        </div>
+
+        <input class="p-2" type="submit" value="@Model.ButtonText" />
+    }
+</div>

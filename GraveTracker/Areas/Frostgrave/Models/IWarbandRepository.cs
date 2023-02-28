@@ -7,5 +7,6 @@ namespace GraveTracker.Areas.Frostgrave.Models
         IEnumerable<Warband> AllWarbands { get; }
         Warband? GetWarbandById(int warbandId);
         IEnumerable<Warband> SearchWarbands(string searchQuery);
+        int UpdateWarband(Warband warband);
     }
 }
