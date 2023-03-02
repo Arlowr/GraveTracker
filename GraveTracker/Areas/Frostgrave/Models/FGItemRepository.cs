@@ -10,11 +10,11 @@ namespace GraveTracker.Areas.Frostgrave.Models
         {
             _graveTrackerDbContext = graveTrackerDbContext;
         }
-        public IEnumerable<FGItem> AllItems => _graveTrackerDbContext.FGItems.OrderBy(i => i.FGItemId);
+        public IEnumerable<FGItem> AllItems => _graveTrackerDbContext.FGItems.OrderBy(i => i.ID);
 
         public FGItem? GetItemByID(int itemId)
         {
-            return _graveTrackerDbContext.FGItems.FirstOrDefault(c => c.FGItemId == itemId);
+            return _graveTrackerDbContext.FGItems.FirstOrDefault(c => c.ID == itemId);
         }
     }
 }

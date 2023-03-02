@@ -60,6 +60,7 @@ namespace GraveTracker.Areas.Frostgrave.Controllers
             else
             {
                 warband = new Warband();
+                warband.Treasury = 300;
                 newWarband = true;
             }
 
@@ -80,26 +81,40 @@ namespace GraveTracker.Areas.Frostgrave.Controllers
                 Warband.Wizard = _wizardRepository.GetWizardByID(Warband.Wizard.WizardId);
             }
 
-            if(Warband.Apprentice != null)
+            if (Warband.Apprentice != null)
             {
                 if (Warband.Apprentice.Name != null)
                 {
+                    int newApprenticeId = 0;
+
                     if (Warband.Apprentice.ApprenticeId == 0)
                     {
                         var tempApprentice = _apprenticeRepository.GetApprentices.FirstOrDefault(x => x.Name == Warband.Apprentice.Name);
                         if (tempApprentice != null)
                         {
                             Warband.Apprentice = tempApprentice;
+                            newApprenticeId = _apprenticeRepository.UpdateApprentice(Warband.Apprentice);
                         }
                     }
-                    Warband.Apprentice.Fight = Warband.Wizard.Fight - 2;
-                    Warband.Apprentice.Shoot = Warband.Wizard.Shoot;
-                    Warband.Apprentice.Armour = Warband.Wizard.Armour;
-                    Warband.Apprentice.Will = Warband.Wizard.Will - 2;
-                    Warband.Apprentice.MaxHealth = Warband.Wizard.MaxHealth - 2;
+                    else
+                    {
+                        newApprenticeId = _apprenticeRepository.GetApprenticeById(Warband.Apprentice.ApprenticeId).ApprenticeId;
+                    }
 
-                    var newApprenticeId = _apprenticeRepository.UpdateApprentice(Warband.Apprentice);
-                    Warband.Apprentice = _apprenticeRepository.GetApprenticeById(newApprenticeId);
+                    if (newApprenticeId != 0)
+                    {
+                        var existingApprentice = _apprenticeRepository.GetApprenticeById(newApprenticeId);
+                        existingApprentice.Name = Warband.Apprentice.Name;
+                        existingApprentice.Shoot = Warband.Wizard.Shoot;
+                        existingApprentice.Armour = Warband.Wizard.Armour;
+
+                        existingApprentice.Fight = Warband.Wizard.Fight - 2;
+                        existingApprentice.Will = Warband.Wizard.Will - 2;
+                        existingApprentice.MaxHealth = Warband.Wizard.MaxHealth - 2;
+
+                        var apprenticeId = _apprenticeRepository.UpdateApprentice(existingApprentice);
+                        Warband.Apprentice = existingApprentice;
+                    }
                 }
             }
 

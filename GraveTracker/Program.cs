@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("GraveTrackerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'GraveTrackerDbContextConnection' not found.");
 
-builder.Services.AddScoped<IFGCharacterRepository, FGCharacterRepository>();
+builder.Services.AddScoped<ISoldierRepository, SoldierRepository>();
 builder.Services.AddScoped<IFGCharacterSuperTypeRepository, FGCharacterSuperTypeRepository>();
 builder.Services.AddScoped<IFGCharacterTypeRepository, FGCharacterTypeRepository>();
 builder.Services.AddScoped<IFGInjuryRepository, FGInjuryRepository>();
+builder.Services.AddScoped<IFGWeaponRepository, FGWeaponRepository>();
+builder.Services.AddScoped<IFGArmourRepository, FGArmourRepository>();
 builder.Services.AddScoped<IFGItemRepository, FGItemRepository>();
 builder.Services.AddScoped<IHomebaseRepository, HomebaseRepository>();
 builder.Services.AddScoped<IHomebaseTypeRepository, HomebaseTypeRepository>();

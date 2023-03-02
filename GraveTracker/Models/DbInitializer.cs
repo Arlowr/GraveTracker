@@ -25,6 +25,23 @@ namespace GraveTracker.Models
                 context.Spells.AddRange(ThaumaturgeSpells.Select(s => s.Value));
                 context.Spells.AddRange(WitchSpells.Select(s => s.Value));
             }
+            if (!context.FGCharacterSuperTypes.Any())
+            {
+                context.FGCharacterSuperTypes.Add(new FGCharacterSuperType() { FGCharacterSuperTypeName = "Specialist Soldier" });
+                context.FGCharacterSuperTypes.Add(new FGCharacterSuperType() { FGCharacterSuperTypeName = "Standard Soldier" });
+            }
+            if (!context.FGArmours.Any())
+            {
+                context.FGArmours.AddRange(Armours.Select(a => a.Value));
+            }
+            if (!context.FGWeapons.Any())
+            {
+                context.FGWeapons.AddRange(Weapons.Select(w => w.Value));
+            }
+            //if (!context.FGCharacterTypes.Any())
+            //{
+
+            //}
 
             context.SaveChanges();
         }
@@ -372,5 +389,89 @@ namespace GraveTracker.Models
                 return witchSpells;
             }
         }
+        private static Dictionary<string, FGArmour>? armours;
+        public static Dictionary<string, FGArmour> Armours
+        {
+            get
+            {
+                if (armours == null)
+                {
+                    var ItemList = new FGArmour[]
+                    {
+                        new FGArmour{ Name="Shield", ArmourMod = 1, Notes = "May not be carried with a two-handed weapon or staff", Type = "Armour"},
+                        new FGArmour{ Name="Light Armour", ArmourMod = 1, Notes = "May not be carried with a two-handed weapon or staff", Type = "Armour"},
+                        new FGArmour{ Name="Heavy Armour", ArmourMod = 2, Notes = "-1 Move", Type = "Armour"}
+                    };
+
+                    armours = new Dictionary<string, FGArmour>();
+                    foreach (FGArmour armour in ItemList)
+                    {
+                        armours.Add(armour.Name, armour);
+                    }
+                }
+                return armours;
+            }
+        }
+        private static Dictionary<string, FGWeapon>? weapons;
+        public static Dictionary<string, FGWeapon> Weapons
+        {
+            get
+            {
+                if (weapons == null)
+                {
+                    var ItemList = new FGWeapon[]
+                    {
+                        new FGWeapon{ Name="Dagger", DamageMod = -1, Notes = "First dagger does not take up an item slot", Range= 0, Type = "Weapon" },
+                        new FGWeapon{ Name="Hand Weapon", DamageMod = 0, Notes = "-", Range= 0, Type = "Weapon" },
+                        new FGWeapon{ Name="Two-Handed Weapon", DamageMod = 2, Notes = "Takes up two item slots", Range= 0, Type = "Weapon" },
+                        new FGWeapon{ Name="Staff", DamageMod = -1, Notes = "-1 damage modifier to opponent in hand-to-hand combat", Range= 0, Type = "Weapon" },
+                        new FGWeapon{ Name="Bow", DamageMod = 0, Notes = "Load and fire as a single action; Must have a quiver", Range= 24, Type = "Weapon" },
+                        new FGWeapon{ Name="Crossbow", DamageMod = 2, Notes = "Load and fire as separate actions; May reload in place of movement; Must have a quiver", Range= 24, Type = "Weapon" },
+                        new FGWeapon{ Name="Unarmed", DamageMod = -2, Notes = "-2 Fight", Range= 0, Type = "Weapon" }
+                    };
+
+                    weapons = new Dictionary<string, FGWeapon>();
+                    foreach (FGWeapon weapon in ItemList)
+                    {
+                        weapons.Add(weapon.Name, weapon);
+                    }
+                }
+                return weapons;
+            }
+        }
+
+        //private static Dictionary<string, FGItem>? fgItems;
+        //public static Dictionary<string, FGItem> FGItems
+        //{
+        //    get
+        //    {
+        //        if (fgItems == null)
+        //        {
+        //            var ItemList = new FGItem[]
+        //            {
+        //                new FGItem{ Name="Dagger",}
+        //            };
+        //        }
+        //        return fgItems;
+        //    }
+        //}
+
+        //private static Dictionary<string, FGCharacterType>? fgCharacterTypes;
+        //public static Dictionary<string, FGCharacterType> FGCharacherTypes
+        //{
+        //    get
+        //    {
+        //        if (fgCharacterTypes== null)
+        //        {
+        //            var characterTypeList = new FGCharacterType[]
+        //            {
+        //                new FGCharacterType{CharacterTypeName = "Archer", },
+        //                new FGCharacterType{}
+        //            };
+        //        }
+
+        //        return fgCharacterTypes;
+        //    }
+        //}
     }
 }

@@ -22,5 +22,7 @@ namespace GraveTracker.Areas.Frostgrave.Models
         public string? Backstory { get; set; }
         public List<FGItem>? Items { get; set; }
         public List<FGInjury>? Injuries { get; set; }
+        public List<FGWeapon>? Weapons { get; set; }
+        public List<FGArmour>? Armours { get; set;}
     }
 }

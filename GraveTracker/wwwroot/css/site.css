@@ -87,3 +87,8 @@ body {
     padding: 5px;
     text-align: center;
 }
+
+.fg-edit-button-size {
+    max-width: 200px;
+    max-height: 40px;
+}

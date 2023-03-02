@@ -12,7 +12,7 @@ namespace GraveTracker.Areas.Frostgrave.Models
         [Required(ErrorMessage = "What is a warband without a wizard?")]
         public Wizard? Wizard { get; set; }
         public Apprentice? Apprentice { get; set; }
-        public List<FGCharacter>? Soldiers { get; set; }
+        public List<Soldier>? Soldiers { get; set; }
         public Homebase? Homebase { get; set; }
         public List<FGItem>? Vault { get; set; }
         public int Treasury { get; set; }

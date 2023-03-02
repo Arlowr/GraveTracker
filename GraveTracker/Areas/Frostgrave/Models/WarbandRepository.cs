@@ -13,17 +13,17 @@ namespace GraveTracker.Areas.Frostgrave.Models
         }
         public IEnumerable<Warband> AllWarbands
         {
-            get { return _graveTrackerDbContext.Warbands.Include(w => w.Wizard).OrderBy(t => t.WarbandId); }
+            get { return _graveTrackerDbContext.Warbands.Include(w => w.Wizard).Include(a=> a.Apprentice).OrderBy(t => t.WarbandId); }
         }
 
         public Warband? GetWarbandById(int warbandId)
         {
-            return _graveTrackerDbContext.Warbands.Include(w => w.Wizard).FirstOrDefault(c => c.WarbandId == warbandId);
+            return _graveTrackerDbContext.Warbands.Include(w => w.Wizard).Include(a => a.Apprentice).FirstOrDefault(c => c.WarbandId == warbandId);
         }
 
         public IEnumerable<Warband> SearchWarbands(string searchQuery)
         {
-            return _graveTrackerDbContext.Warbands.Include(w => w.Wizard).Where(p => p.WarbandName.Contains(searchQuery));
+            return _graveTrackerDbContext.Warbands.Include(w => w.Wizard).Include(a => a.Apprentice).Where(p => p.WarbandName.Contains(searchQuery));
         }
 
         public int UpdateWarband(Warband warband)
@@ -37,6 +37,9 @@ namespace GraveTracker.Areas.Frostgrave.Models
             else
             {
                 _graveTrackerDbContext.Entry(existingwarband).CurrentValues.SetValues(warband);
+
+                existingwarband.Wizard = warband.Wizard;
+                existingwarband.Apprentice = warband.Apprentice;
             }
             _graveTrackerDbContext.SaveChanges();
 

@@ -4,6 +4,7 @@ using GraveTracker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraveTracker.Migrations
 {
     [DbContext(typeof(GraveTrackerDbContext))]
-    partial class GraveTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230301150346_ItemsOverhaul")]
+    partial class ItemsOverhaul
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,156 +23,6 @@ namespace GraveTracker.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ApprenticeFGArmour", b =>
-                {
-                    b.Property<int>("ApprenticesApprenticeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ArmoursID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApprenticesApprenticeId", "ArmoursID");
-
-                    b.HasIndex("ArmoursID");
-
-                    b.ToTable("ApprenticeFGArmour");
-                });
-
-            modelBuilder.Entity("ApprenticeFGItem", b =>
-                {
-                    b.Property<int>("ApprenticesApprenticeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApprenticesApprenticeId", "ItemsID");
-
-                    b.HasIndex("ItemsID");
-
-                    b.ToTable("ApprenticeFGItem");
-                });
-
-            modelBuilder.Entity("ApprenticeFGWeapon", b =>
-                {
-                    b.Property<int>("ApprenticesApprenticeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeaponsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApprenticesApprenticeId", "WeaponsID");
-
-                    b.HasIndex("WeaponsID");
-
-                    b.ToTable("ApprenticeFGWeapon");
-                });
-
-            modelBuilder.Entity("FGArmourSoldier", b =>
-                {
-                    b.Property<int>("ArmoursID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoldiersSoldierId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ArmoursID", "SoldiersSoldierId");
-
-                    b.HasIndex("SoldiersSoldierId");
-
-                    b.ToTable("FGArmourSoldier");
-                });
-
-            modelBuilder.Entity("FGArmourWizard", b =>
-                {
-                    b.Property<int>("ArmoursID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WizardsWizardId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ArmoursID", "WizardsWizardId");
-
-                    b.HasIndex("WizardsWizardId");
-
-                    b.ToTable("FGArmourWizard");
-                });
-
-            modelBuilder.Entity("FGCharacterTypeFGItem", b =>
-                {
-                    b.Property<int>("BaseItemsID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CharacterTypesFGCharacterTypeID")
-                        .HasColumnType("int");
-
-                    b.HasKey("BaseItemsID", "CharacterTypesFGCharacterTypeID");
-
-                    b.HasIndex("CharacterTypesFGCharacterTypeID");
-
-                    b.ToTable("FGCharacterTypeFGItem");
-                });
-
-            modelBuilder.Entity("FGItemSoldier", b =>
-                {
-                    b.Property<int>("ItemsID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoldiersSoldierId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ItemsID", "SoldiersSoldierId");
-
-                    b.HasIndex("SoldiersSoldierId");
-
-                    b.ToTable("FGItemSoldier");
-                });
-
-            modelBuilder.Entity("FGItemWizard", b =>
-                {
-                    b.Property<int>("ItemsID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WizardsWizardId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ItemsID", "WizardsWizardId");
-
-                    b.HasIndex("WizardsWizardId");
-
-                    b.ToTable("FGItemWizard");
-                });
-
-            modelBuilder.Entity("FGWeaponSoldier", b =>
-                {
-                    b.Property<int>("SoldiersSoldierId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeaponsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("SoldiersSoldierId", "WeaponsID");
-
-                    b.HasIndex("WeaponsID");
-
-                    b.ToTable("FGWeaponSoldier");
-                });
-
-            modelBuilder.Entity("FGWeaponWizard", b =>
-                {
-                    b.Property<int>("WeaponsID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WizardsWizardId")
-                        .HasColumnType("int");
-
-                    b.HasKey("WeaponsID", "WizardsWizardId");
-
-                    b.HasIndex("WizardsWizardId");
-
-                    b.ToTable("FGWeaponWizard");
-                });
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Apprentice", b =>
                 {
@@ -218,7 +70,13 @@ namespace GraveTracker.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<int?>("ApprenticeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ArmourMod")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FGCharacterId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -238,9 +96,66 @@ namespace GraveTracker.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WizardId")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
+                    b.HasIndex("ApprenticeId");
+
+                    b.HasIndex("FGCharacterId");
+
+                    b.HasIndex("WizardId");
+
                     b.ToTable("FGArmours");
+                });
+
+            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGCharacter", b =>
+                {
+                    b.Property<int>("FGCharacterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FGCharacterId"), 1L, 1);
+
+                    b.Property<int>("Armour")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Backstory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Fight")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxHealth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Move")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Shoot")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeFGCharacterTypeID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarbandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Will")
+                        .HasColumnType("int");
+
+                    b.HasKey("FGCharacterId");
+
+                    b.HasIndex("TypeFGCharacterTypeID");
+
+                    b.HasIndex("WarbandId");
+
+                    b.ToTable("FGCharacters");
                 });
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGCharacterSuperType", b =>
@@ -290,22 +205,12 @@ namespace GraveTracker.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FGArmourID")
-                        .HasColumnType("int");
-
                     b.Property<int>("FGCharacterSuperTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FGWeaponID")
                         .HasColumnType("int");
 
                     b.HasKey("FGCharacterTypeID");
 
-                    b.HasIndex("FGArmourID");
-
                     b.HasIndex("FGCharacterSuperTypeId");
-
-                    b.HasIndex("FGWeaponID");
 
                     b.ToTable("FGCharacterTypes");
                 });
@@ -325,12 +230,12 @@ namespace GraveTracker.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FGCharacterId")
+                        .HasColumnType("int");
+
                     b.Property<string>("InjuryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SoldierId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("WizardId")
                         .HasColumnType("int");
@@ -339,7 +244,7 @@ namespace GraveTracker.Migrations
 
                     b.HasIndex("ApprenticeId");
 
-                    b.HasIndex("SoldierId");
+                    b.HasIndex("FGCharacterId");
 
                     b.HasIndex("WizardId");
 
@@ -353,6 +258,15 @@ namespace GraveTracker.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int?>("ApprenticeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FGCharacterId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FGCharacterTypeID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -374,9 +288,20 @@ namespace GraveTracker.Migrations
                     b.Property<int?>("WarbandId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("WizardId")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
+                    b.HasIndex("ApprenticeId");
+
+                    b.HasIndex("FGCharacterId");
+
+                    b.HasIndex("FGCharacterTypeID");
+
                     b.HasIndex("WarbandId");
+
+                    b.HasIndex("WizardId");
 
                     b.ToTable("FGItems");
                 });
@@ -389,7 +314,13 @@ namespace GraveTracker.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                    b.Property<int?>("ApprenticeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DamageMod")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FGCharacterId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -412,7 +343,16 @@ namespace GraveTracker.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WizardId")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("ApprenticeId");
+
+                    b.HasIndex("FGCharacterId");
+
+                    b.HasIndex("WizardId");
 
                     b.ToTable("FGWeapons");
                 });
@@ -459,58 +399,6 @@ namespace GraveTracker.Migrations
                     b.HasKey("HomebaseTypeId");
 
                     b.ToTable("HomebaseTypes");
-                });
-
-            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Soldier", b =>
-                {
-                    b.Property<int>("SoldierId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SoldierId"), 1L, 1);
-
-                    b.Property<string>("Ability")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Armour")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Backstory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Fight")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxHealth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Move")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Shoot")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WarbandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Will")
-                        .HasColumnType("int");
-
-                    b.Property<int>("characterTypeFGCharacterTypeID")
-                        .HasColumnType("int");
-
-                    b.HasKey("SoldierId");
-
-                    b.HasIndex("WarbandId");
-
-                    b.HasIndex("characterTypeFGCharacterTypeID");
-
-                    b.ToTable("Soldiers");
                 });
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Spell", b =>
@@ -669,171 +557,43 @@ namespace GraveTracker.Migrations
                     b.ToTable("SpellWizard");
                 });
 
-            modelBuilder.Entity("ApprenticeFGArmour", b =>
+            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGArmour", b =>
                 {
                     b.HasOne("GraveTracker.Areas.Frostgrave.Models.Apprentice", null)
-                        .WithMany()
-                        .HasForeignKey("ApprenticesApprenticeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Armours")
+                        .HasForeignKey("ApprenticeId");
 
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGArmour", null)
-                        .WithMany()
-                        .HasForeignKey("ArmoursID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ApprenticeFGItem", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Apprentice", null)
-                        .WithMany()
-                        .HasForeignKey("ApprenticesApprenticeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGItem", null)
-                        .WithMany()
-                        .HasForeignKey("ItemsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ApprenticeFGWeapon", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Apprentice", null)
-                        .WithMany()
-                        .HasForeignKey("ApprenticesApprenticeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGWeapon", null)
-                        .WithMany()
-                        .HasForeignKey("WeaponsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FGArmourSoldier", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGArmour", null)
-                        .WithMany()
-                        .HasForeignKey("ArmoursID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Soldier", null)
-                        .WithMany()
-                        .HasForeignKey("SoldiersSoldierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FGArmourWizard", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGArmour", null)
-                        .WithMany()
-                        .HasForeignKey("ArmoursID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacter", null)
+                        .WithMany("Armours")
+                        .HasForeignKey("FGCharacterId");
 
                     b.HasOne("GraveTracker.Areas.Frostgrave.Models.Wizard", null)
-                        .WithMany()
-                        .HasForeignKey("WizardsWizardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Armours")
+                        .HasForeignKey("WizardId");
                 });
 
-            modelBuilder.Entity("FGCharacterTypeFGItem", b =>
+            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGCharacter", b =>
                 {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGItem", null)
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacterType", "Type")
                         .WithMany()
-                        .HasForeignKey("BaseItemsID")
+                        .HasForeignKey("TypeFGCharacterTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacterType", null)
-                        .WithMany()
-                        .HasForeignKey("CharacterTypesFGCharacterTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Warband", null)
+                        .WithMany("Soldiers")
+                        .HasForeignKey("WarbandId");
 
-            modelBuilder.Entity("FGItemSoldier", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGItem", null)
-                        .WithMany()
-                        .HasForeignKey("ItemsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Soldier", null)
-                        .WithMany()
-                        .HasForeignKey("SoldiersSoldierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FGItemWizard", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGItem", null)
-                        .WithMany()
-                        .HasForeignKey("ItemsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Wizard", null)
-                        .WithMany()
-                        .HasForeignKey("WizardsWizardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FGWeaponSoldier", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Soldier", null)
-                        .WithMany()
-                        .HasForeignKey("SoldiersSoldierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGWeapon", null)
-                        .WithMany()
-                        .HasForeignKey("WeaponsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FGWeaponWizard", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGWeapon", null)
-                        .WithMany()
-                        .HasForeignKey("WeaponsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Wizard", null)
-                        .WithMany()
-                        .HasForeignKey("WizardsWizardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGCharacterType", b =>
                 {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGArmour", null)
-                        .WithMany("CharacterTypes")
-                        .HasForeignKey("FGArmourID");
-
                     b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacterSuperType", "FGCharacterSuperType")
                         .WithMany("MyProperty")
                         .HasForeignKey("FGCharacterSuperTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGWeapon", null)
-                        .WithMany("CharacterTypes")
-                        .HasForeignKey("FGWeaponID");
 
                     b.Navigation("FGCharacterSuperType");
                 });
@@ -844,9 +604,9 @@ namespace GraveTracker.Migrations
                         .WithMany("Injuries")
                         .HasForeignKey("ApprenticeId");
 
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Soldier", null)
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacter", null)
                         .WithMany("Injuries")
-                        .HasForeignKey("SoldierId");
+                        .HasForeignKey("FGCharacterId");
 
                     b.HasOne("GraveTracker.Areas.Frostgrave.Models.Wizard", null)
                         .WithMany("Injuries")
@@ -855,9 +615,40 @@ namespace GraveTracker.Migrations
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGItem", b =>
                 {
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Apprentice", null)
+                        .WithMany("Items")
+                        .HasForeignKey("ApprenticeId");
+
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacter", null)
+                        .WithMany("Items")
+                        .HasForeignKey("FGCharacterId");
+
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacterType", null)
+                        .WithMany("BaseItems")
+                        .HasForeignKey("FGCharacterTypeID");
+
                     b.HasOne("GraveTracker.Areas.Frostgrave.Models.Warband", null)
                         .WithMany("Vault")
                         .HasForeignKey("WarbandId");
+
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Wizard", null)
+                        .WithMany("Items")
+                        .HasForeignKey("WizardId");
+                });
+
+            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGWeapon", b =>
+                {
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Apprentice", null)
+                        .WithMany("Weapons")
+                        .HasForeignKey("ApprenticeId");
+
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacter", null)
+                        .WithMany("Weapons")
+                        .HasForeignKey("FGCharacterId");
+
+                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Wizard", null)
+                        .WithMany("Weapons")
+                        .HasForeignKey("WizardId");
                 });
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Homebase", b =>
@@ -869,21 +660,6 @@ namespace GraveTracker.Migrations
                         .IsRequired();
 
                     b.Navigation("BaseType");
-                });
-
-            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Soldier", b =>
-                {
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.Warband", null)
-                        .WithMany("Soldiers")
-                        .HasForeignKey("WarbandId");
-
-                    b.HasOne("GraveTracker.Areas.Frostgrave.Models.FGCharacterType", "characterType")
-                        .WithMany()
-                        .HasForeignKey("characterTypeFGCharacterTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("characterType");
                 });
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Spell", b =>
@@ -948,12 +724,24 @@ namespace GraveTracker.Migrations
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Apprentice", b =>
                 {
+                    b.Navigation("Armours");
+
                     b.Navigation("Injuries");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("Weapons");
                 });
 
-            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGArmour", b =>
+            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGCharacter", b =>
                 {
-                    b.Navigation("CharacterTypes");
+                    b.Navigation("Armours");
+
+                    b.Navigation("Injuries");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("Weapons");
                 });
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGCharacterSuperType", b =>
@@ -961,14 +749,9 @@ namespace GraveTracker.Migrations
                     b.Navigation("MyProperty");
                 });
 
-            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGWeapon", b =>
+            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.FGCharacterType", b =>
                 {
-                    b.Navigation("CharacterTypes");
-                });
-
-            modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Soldier", b =>
-                {
-                    b.Navigation("Injuries");
+                    b.Navigation("BaseItems");
                 });
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.SpellSchool", b =>
@@ -985,7 +768,13 @@ namespace GraveTracker.Migrations
 
             modelBuilder.Entity("GraveTracker.Areas.Frostgrave.Models.Wizard", b =>
                 {
+                    b.Navigation("Armours");
+
                     b.Navigation("Injuries");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("Weapons");
                 });
 #pragma warning restore 612, 618
         }
