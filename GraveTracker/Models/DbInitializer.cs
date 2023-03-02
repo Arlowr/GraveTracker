@@ -38,6 +38,7 @@ namespace GraveTracker.Models
             {
                 context.FGWeapons.AddRange(Weapons.Select(w => w.Value));
             }
+            
             //if (!context.FGCharacterTypes.Any())
             //{
 
